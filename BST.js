@@ -37,8 +37,24 @@ class Tree {
   #sortAndRemoveDuplicates(array) {
     return [...new Set(array.slice().sort((a, b) => a - b))];
   }
+
+  includes(value) {
+    let current = this.root;
+
+    while (current !== null) {
+      if (value === current.data) return true;
+
+      if (value > current.data) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+    }
+
+    return false;
+  }
 }
 
-const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const test = new Tree([1, 2, 4]);
 
 prettyPrint(test.root);
