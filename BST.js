@@ -53,8 +53,43 @@ class Tree {
 
     return false;
   }
+
+  insert(value) {
+    if (this.root === null) {
+      this.root = new Node(value);
+      return;
+    }
+
+    let current = this.root;
+
+    while (current !== null) {
+      if (value === current.data) return;
+
+      if (value > current.data) {
+        if (current.right === null) {
+          current.right = new Node(value);
+          return;
+        }
+
+        current = current.right;
+      } else {
+        if (current.left === null) {
+          current.left = new Node(value);
+          return;
+        }
+
+        current = current.left;
+      }
+    }
+  }
 }
 
 const test = new Tree([1, 2, 4]);
+
+test.insert(3);
+
+test.insert(5);
+
+test.insert(7);
 
 prettyPrint(test.root);
