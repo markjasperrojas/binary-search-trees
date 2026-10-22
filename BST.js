@@ -82,14 +82,55 @@ class Tree {
       }
     }
   }
+
+  deleteItem(value) {
+    if (this.root === null) return;
+
+    if (
+      value === this.root.data &&
+      this.root.right === null &&
+      this.root.left === null
+    ) {
+      this.root = null;
+      return;
+    }
+
+    let current = this.root;
+    let prev;
+    let isRight = false;
+
+    while (current !== null) {
+      if (
+        value === current.data &&
+        current.right === null &&
+        current.left === null
+      ) {
+        if (isRight) {
+          prev.right = null;
+          return;
+        } else {
+          prev.left = null;
+          return;
+        }
+      }
+
+      if (value > current.data) {
+        prev = current;
+        current = current.right;
+        isRight = true;
+      } else {
+        prev = current;
+        current = current.left;
+        isRight = false;
+      }
+    }
+
+    return;
+  }
 }
 
-const test = new Tree([1, 2, 4]);
+const test = new Tree([1]);
 
-test.insert(3);
-
-test.insert(5);
-
-test.insert(7);
+test.deleteItem(1);
 
 prettyPrint(test.root);
