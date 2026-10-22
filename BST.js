@@ -95,6 +95,24 @@ class Tree {
       return;
     }
 
+    if (
+      value === this.root.data &&
+      this.root.right !== null &&
+      this.root.left === null
+    ) {
+      this.root = this.root.right;
+      return;
+    }
+
+    if (
+      value === this.root.data &&
+      this.root.right === null &&
+      this.root.left !== null
+    ) {
+      this.root = this.root.left;
+      return;
+    }
+
     let current = this.root;
     let prev;
     let isRight = false;
@@ -114,6 +132,36 @@ class Tree {
         }
       }
 
+      if (
+        value === current.data &&
+        current.right !== null &&
+        current.left === null
+      ) {
+        const temp = current.right;
+        if (isRight) {
+          prev.right = temp;
+          return;
+        } else {
+          prev.left = temp;
+          return;
+        }
+      }
+
+      if (
+        value === current.data &&
+        current.right === null &&
+        current.left !== null
+      ) {
+        const temp = current.left;
+        if (isRight) {
+          prev.right = temp;
+          return;
+        } else {
+          prev.left = temp;
+          return;
+        }
+      }
+
       if (value > current.data) {
         prev = current;
         current = current.right;
@@ -129,7 +177,7 @@ class Tree {
   }
 }
 
-const test = new Tree([1]);
+const test = new Tree([1, 2]);
 
 test.deleteItem(1);
 
