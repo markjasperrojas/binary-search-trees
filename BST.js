@@ -120,6 +120,28 @@ class Tree {
     while (current !== null) {
       if (
         value === current.data &&
+        current.right !== null &&
+        current.left !== null
+      ) {
+        let successor = current.right;
+
+        while (successor !== null) {
+          if (successor.left === null) {
+            break;
+          }
+          successor = successor.left;
+        }
+
+        const temp = current.data;
+        current.data = successor.data;
+        successor.data = temp;
+        prev = current;
+        current = current.right;
+        isRight = true;
+      }
+
+      if (
+        value === current.data &&
         current.right === null &&
         current.left === null
       ) {
@@ -177,8 +199,8 @@ class Tree {
   }
 }
 
-const test = new Tree([1, 2]);
+const test = new Tree([10, 20, 30]);
 
-test.deleteItem(1);
+test.deleteItem(20);
 
 prettyPrint(test.root);
