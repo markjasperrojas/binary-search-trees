@@ -219,12 +219,35 @@ class Tree {
       index++;
     }
   }
+
+  preOrderForEach(callback) {
+    if (typeof callback !== 'function') {
+      throw new Error('Callback is required as a parameter');
+    }
+
+    let current = this.root;
+
+    this.#preOrder(current, callback);
+  }
+
+  #preOrder(node, callback) {
+    if (node === null) return;
+
+    callback(node.data);
+
+    this.#preOrder(node.left, callback);
+    this.#preOrder(node.right, callback);
+  }
 }
 
-const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const test = new Tree([5, 7, 8]);
+
+test.insert(6);
+
+test.insert(4);
 
 prettyPrint(test.root);
 
-test.levelOrderForEach((value) => {
+test.preOrderForEach((value) => {
   console.log(value);
 });
