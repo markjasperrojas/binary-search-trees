@@ -254,6 +254,22 @@ class Tree {
     callback(node.data);
     this.#inOrder(node.right, callback);
   }
+
+  postOrderForEach(callback) {
+    if (typeof callback !== 'function') {
+      throw new Error('Callback is required as a parameter');
+    }
+
+    this.#postOrder(this.root, callback);
+  }
+
+  #postOrder(node, callback) {
+    if (node === null) return;
+
+    this.#postOrder(node.left, callback);
+    this.#postOrder(node.right, callback);
+    callback(node.data);
+  }
 }
 
 const test = new Tree([5, 7, 8]);
@@ -264,6 +280,6 @@ test.insert(4);
 
 prettyPrint(test.root);
 
-test.inOrderForEach((value) => {
+test.postOrderForEach((value) => {
   console.log(value);
 });
