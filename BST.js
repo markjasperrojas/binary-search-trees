@@ -238,6 +238,22 @@ class Tree {
     this.#preOrder(node.left, callback);
     this.#preOrder(node.right, callback);
   }
+
+  inOrderForEach(callback) {
+    if (typeof callback !== 'function') {
+      throw new Error('Callback is required as a parameter');
+    }
+
+    this.#inOrder(this.root, callback);
+  }
+
+  #inOrder(node, callback) {
+    if (node === null) return;
+
+    this.#inOrder(node.left, callback);
+    callback(node.data);
+    this.#inOrder(node.right, callback);
+  }
 }
 
 const test = new Tree([5, 7, 8]);
@@ -248,6 +264,6 @@ test.insert(4);
 
 prettyPrint(test.root);
 
-test.preOrderForEach((value) => {
+test.inOrderForEach((value) => {
   console.log(value);
 });
