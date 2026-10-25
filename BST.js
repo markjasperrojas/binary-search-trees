@@ -270,16 +270,37 @@ class Tree {
     this.#postOrder(node.right, callback);
     callback(node.data);
   }
+
+  height(value) {
+    let current = this.root;
+
+    while (current !== null) {
+      if (value === current.data) {
+        return this.#heightRecur(current) - 1;
+      }
+
+      if (value > current.data) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+    }
+  }
+
+  #heightRecur(node) {
+    if (node === null) return 0;
+
+    const left = this.#heightRecur(node.left);
+    const right = this.#heightRecur(node.right);
+
+    return Math.max(left, right) + 1;
+  }
 }
 
-const test = new Tree([5, 7, 8]);
+const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67]);
 
-test.insert(6);
-
-test.insert(4);
+test.insert(2);
 
 prettyPrint(test.root);
 
-test.postOrderForEach((value) => {
-  console.log(value);
-});
+console.log(test.height(68));
