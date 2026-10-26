@@ -295,12 +295,33 @@ class Tree {
 
     return Math.max(left, right) + 1;
   }
+
+  depth(value) {
+    if (this.root === null) return undefined;
+
+    let depth = 0;
+    let current = this.root;
+
+    while (current !== null) {
+      if (value === current.data) {
+        return depth;
+      }
+
+      if (value > current.data) {
+        depth++;
+        current = current.right;
+      } else {
+        depth++;
+        current = current.left;
+      }
+    }
+
+    return undefined;
+  }
 }
 
-const test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67]);
-
-test.insert(2);
+const test = new Tree([1, 2, 3, 4, 5]);
 
 prettyPrint(test.root);
 
-console.log(test.height(68));
+console.log(test.depth(3));
