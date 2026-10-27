@@ -339,14 +339,30 @@ class Tree {
 
     return Math.max(leftHeight, rightHeight) + 1;
   }
+
+  rebalance() {
+    const newArr = [];
+
+    this.preOrderForEach((value) => {
+      newArr.push(value);
+    });
+
+    this.root = this.#buildTree(this.#sortAndRemoveDuplicates(newArr));
+  }
 }
 
 const test = new Tree([1, 2, 3]);
 
-// test.insert(4);
+test.insert(4);
 
-// test.insert(5);
+test.insert(5);
 
 prettyPrint(test.root);
 
 console.log(test.isBalanced());
+
+console.log(test.rebalance());
+
+console.log(test.isBalanced());
+
+prettyPrint(test.root);
