@@ -1,13 +1,3 @@
-const prettyPrint = (node, prefix = '', isLeft = true) => {
-  if (node === null || node === undefined) {
-    return;
-  }
-
-  prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-  prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-};
-
 class Node {
   constructor(data, left = null, right = null) {
     this.data = data;
@@ -351,18 +341,4 @@ class Tree {
   }
 }
 
-const test = new Tree([1, 2, 3]);
-
-test.insert(4);
-
-test.insert(5);
-
-prettyPrint(test.root);
-
-console.log(test.isBalanced());
-
-console.log(test.rebalance());
-
-console.log(test.isBalanced());
-
-prettyPrint(test.root);
+export { Tree };
