@@ -318,10 +318,35 @@ class Tree {
 
     return undefined;
   }
+
+  // Not my own solution
+  isBalanced() {
+    return this.#checkBalance(this.root) !== -1;
+  }
+
+  #checkBalance(node) {
+    if (node === null) return 0;
+
+    const leftHeight = this.#checkBalance(node.left);
+    if (leftHeight === -1) return -1;
+
+    const rightHeight = this.#checkBalance(node.right);
+    if (rightHeight === -1) return -1;
+
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return -1;
+    }
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
 }
 
-const test = new Tree([1, 2, 3, 4, 5]);
+const test = new Tree([1, 2, 3]);
+
+// test.insert(4);
+
+// test.insert(5);
 
 prettyPrint(test.root);
 
-console.log(test.depth(3));
+console.log(test.isBalanced());
